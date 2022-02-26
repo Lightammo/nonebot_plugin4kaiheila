@@ -10,19 +10,25 @@ from nonebot.rule import to_me
 from nonebot.typing import T_State
 from nonebot.adapters import Bot, Event
 
-from nonebot import get_driver
+# 使用无头浏览器访问api地址
+import urllib3
+# 处理api返回的json数据
+import json
 
 from .func import *
 
 
-topGames = on_command("tg")
+LPLLIVE = on_command("lpllive")
 
 
-@topGames.handle()
+@LPLLIVE.handle()
 async def topGames_escape(message: Message = CommandArg()):
-    url = "https://store.steampowered.com/stats/"
-    steamHTMLText = getHTMLText(url)
-    gameList = getTopGamesList(steamHTMLText)
-    msg = strList(gameList)
-    await topGames.send("依据当前玩家人数排列的最热门Steam游戏")
-    await topGames.send(msg)
+    url = "https://www.wanplus.com/lol/schedule"
+    lplHTMLText = getHTMLText(url)
+    matchData = getMatchList(lplHTMLText)
+    msg = strLiveList(matchData)
+    await LPLLIVE.send("尝试查找ing...\n")
+    if(msg == ""):
+        await LPLLIVE.send("未查询到比赛信息")
+    else:
+        await LPLLIVE.send(msg)

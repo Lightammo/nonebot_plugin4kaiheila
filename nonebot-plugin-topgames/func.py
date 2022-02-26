@@ -26,11 +26,11 @@ def getTopGamesList(steamHTMLText):
     return gameList
 
 
-# def printList(gameList):
-#    print("依据当前玩家人数排列的最热门游戏")
-#    print("{1:{0}<4}{2:{0}<8}{3:{0}<10}{4:{0}<10}".format(
-#        (chr(12288)), "排名", "当前玩家人数", "今日峰值", "游戏"))
-#    for i in range(10):
-#        g = gameList[i]  # 获取每个游戏的数据列表
-#        print("{1:{0}<4}{2:{0}<8}{3:{0}<10}{4:{0}^10}".format(
-#            (chr(12288)), i+1, g[0], g[1], g[2]))
+def strList(gameList):
+    str = "{1:{0}<4}{2:{0}<8}{3:{0}<10}{4:{0}<10}\n".format(
+        (chr(12288)), "排名", "当前玩家人数", "今日峰值", "游戏")
+    for i in range(10):
+        g = gameList[i]  # 获取每个游戏的数据列表
+        str += "{1:{0}<4}{2:{0}<8}{3:{0}<10}{4:{0}^10}\n".format(
+            (chr(12288)), i+1, g[0], g[1], g[2])
+    return str
